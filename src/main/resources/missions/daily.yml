@@ -1,0 +1,819 @@
+forced-slots:
+  # 1: daily-login
+
+templates:
+  daily-login:
+    trigger: LOGIN
+    server-group: survival
+    target: ""
+    display-name: "&dDaily login"
+    description:
+      - "&7Join the server today."
+    required: 1
+    xp: 10
+  daily-playtime:
+    trigger: PLAY_TIME
+    server-group: survival
+    target: ""
+    display-name: "&6Stay a while"
+    description:
+      - "&7Play on the server for &e30 minutes&7."
+    required: 1800
+    xp: 10
+  mine-stone:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&fMine stone"
+    description:
+      - "&7Break {required} {target} blocks."
+    required: 32
+    xp: 50
+  kill-zombie:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: ZOMBIE
+    display-name: "&aZombie hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 60
+  kill-skeleton:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: SKELETON
+    display-name: "&fSkeleton hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 60
+  kill-sheep:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: SHEEP
+    display-name: "&fSheep hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 60
+  kill-cow:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: COW
+    display-name: "&fCow hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 60
+  mine-dirt:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: DIRT
+    display-name: "&6Ground worker"
+    description:
+      - "&7Break {required} {target} blocks."
+    required: 48
+    xp: 55
+  mine-oak-log:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: OAK_LOG
+    display-name: "&6Woodcutter"
+    description:
+      - "&7Break {required} {target} blocks."
+    required: 24
+    xp: 55
+  place-stone:
+    trigger: BLOCK_PLACE
+    server-group: survival
+    target: STONE
+    display-name: "&7Stone builder"
+    description:
+      - "&7Place {required} {target} blocks."
+    required: 32
+    xp: 50
+  place-dirt:
+    trigger: BLOCK_PLACE
+    server-group: survival
+    target: DIRT
+    display-name: "&6Land shaper"
+    description:
+      - "&7Place {required} {target} blocks."
+    required: 48
+    xp: 50
+  kill-spider:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: SPIDER
+    display-name: "&8Spider hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 8
+    xp: 60
+  kill-creeper:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: CREEPER
+    display-name: "&2Creeper hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 6
+    xp: 70
+  kill-enderman:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: ENDERMAN
+    display-name: "&5Enderman hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 6
+    xp: 70
+  kill-witch:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: WITCH
+    display-name: "&5Witch hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 5
+    xp: 70
+  kill-drowned:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: DROWNED
+    display-name: "&3Drowned hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 8
+    xp: 70
+  kill-phantom:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: PHANTOM
+    display-name: "&9Night watch"
+    description:
+      - "&7Kill {required} {target}."
+    required: 5
+    xp: 70
+  kill-squid:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: SQUID
+    display-name: "&0Ink collector"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 60
+  kill-glow-squid:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: GLOW_SQUID
+    display-name: "&bGlow ink"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 70
+  kill-ghast:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: GHAST
+    display-name: "&fGhast tears"
+    description:
+      - "&7Kill {required} {target}."
+    required: 3
+    xp: 80
+  kill-guardian:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: GUARDIAN
+    display-name: "&3Ocean threat"
+    description:
+      - "&7Kill {required} {target}."
+    required: 1
+    xp: 80
+  kill-husk:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: HUSK
+    display-name: "&eDesert hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 70
+  kill-zombified-piglin:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: ZOMBIFIED_PIGLIN
+    display-name: "&6Nether gold"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 70
+  kill-blaze:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: BLAZE
+    display-name: "&6Blaze hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 80
+  kill-magma-cube:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: MAGMA_CUBE
+    display-name: "&cMagma slayer"
+    description:
+      - "&7Kill {required} {target}."
+    required: 20
+    xp: 80
+  kill-hoglin:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: HOGLIN
+    display-name: "&6Hoglin hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 5
+    xp: 80
+  kill-wither-skeleton:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: WITHER_SKELETON
+    display-name: "&8Wither bones"
+    description:
+      - "&7Kill {required} {target}."
+    required: 5
+    xp: 85
+  kill-slime:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: SLIME
+    display-name: "&aSticky business"
+    description:
+      - "&7Kill {required} {target}."
+    required: 15
+    xp: 70
+  kill-piglin:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: PIGLIN
+    display-name: "&6Piglin hunter"
+    description:
+      - "&7Kill {required} {target}."
+    required: 10
+    xp: 75
+  consume-bread:
+    trigger: CONSUME
+    server-group: survival
+    target: BREAD
+    display-name: "&6Fresh bread"
+    description:
+      - "&7Eat {required} {target}."
+    required: 16
+    xp: 10
+  consume-beetroot:
+    trigger: CONSUME
+    server-group: survival
+    target: BEETROOT
+    display-name: "&cBeetroot snack"
+    description:
+      - "&7Eat {required} {target}."
+    required: 16
+    xp: 10
+  consume-spider-eye:
+    trigger: CONSUME
+    server-group: survival
+    target: SPIDER_EYE
+    display-name: "&5Taste test"
+    description:
+      - "&7Eat {required} {target}."
+    required: 1
+    xp: 10
+  consume-cooked-mutton:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_MUTTON
+    display-name: "&6Mutton meal"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-beetroot-soup:
+    trigger: CONSUME
+    server-group: survival
+    target: BEETROOT_SOUP
+    display-name: "&cBorscht lover"
+    description:
+      - "&7Eat {required} {target}."
+    required: 5
+    xp: 10
+  consume-golden-apple:
+    trigger: CONSUME
+    server-group: survival
+    target: GOLDEN_APPLE
+    display-name: "&6Golden bite"
+    description:
+      - "&7Eat {required} {target}."
+    required: 1
+    xp: 10
+  consume-cooked-porkchop:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_PORKCHOP
+    display-name: "&6Pork dinner"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-cooked-cod:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_COD
+    display-name: "&bCod dinner"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-cooked-salmon:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_SALMON
+    display-name: "&dSalmon dinner"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-cooked-beef:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_BEEF
+    display-name: "&cSteak time"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-cooked-chicken:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_CHICKEN
+    display-name: "&eChicken dinner"
+    description:
+      - "&7Eat {required} {target}."
+    required: 15
+    xp: 10
+  consume-baked-potato:
+    trigger: CONSUME
+    server-group: survival
+    target: BAKED_POTATO
+    display-name: "&6Baked potato"
+    description:
+      - "&7Eat {required} {target}."
+    required: 16
+    xp: 10
+  consume-cooked-rabbit:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_RABBIT
+    display-name: "&fRabbit dinner"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-glow-berries:
+    trigger: CONSUME
+    server-group: survival
+    target: GLOW_BERRIES
+    display-name: "&bGlow berries"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-honey-bottle:
+    trigger: CONSUME
+    server-group: survival
+    target: HONEY_BOTTLE
+    display-name: "&6Honey drink"
+    description:
+      - "&7Drink {required} {target}."
+    required: 10
+    xp: 10
+  consume-apple:
+    trigger: CONSUME
+    server-group: survival
+    target: APPLE
+    display-name: "&cApple snack"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-mushroom-stew:
+    trigger: CONSUME
+    server-group: survival
+    target: MUSHROOM_STEW
+    display-name: "&6Stew bowl"
+    description:
+      - "&7Eat {required} {target}."
+    required: 5
+    xp: 10
+  consume-cookie:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKIE
+    display-name: "&6Cookie rush"
+    description:
+      - "&7Eat {required} {target}."
+    required: 32
+    xp: 10
+  consume-rotten-flesh:
+    trigger: CONSUME
+    server-group: survival
+    target: ROTTEN_FLESH
+    display-name: "&2Questionable meal"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  consume-carrot:
+    trigger: CONSUME
+    server-group: survival
+    target: CARROT
+    display-name: "&6Carrot snack"
+    description:
+      - "&7Eat {required} {target}."
+    required: 16
+    xp: 10
+  consume-golden-carrot:
+    trigger: CONSUME
+    server-group: survival
+    target: GOLDEN_CARROT
+    display-name: "&6Golden carrot"
+    description:
+      - "&7Eat {required} {target}."
+    required: 5
+    xp: 10
+  consume-sweet-berries:
+    trigger: CONSUME
+    server-group: survival
+    target: SWEET_BERRIES
+    display-name: "&dBerry snack"
+    description:
+      - "&7Eat {required} {target}."
+    required: 16
+    xp: 10
+  consume-rabbit-stew:
+    trigger: CONSUME
+    server-group: survival
+    target: RABBIT_STEW
+    display-name: "&fRabbit stew"
+    description:
+      - "&7Eat {required} {target}."
+    required: 10
+    xp: 10
+  craft-shield:
+    trigger: CRAFT
+    server-group: survival
+    target: SHIELD
+    display-name: "&7Shield smith"
+    description:
+      - "&7Craft {required} {target}."
+    required: 3
+    xp: 10
+  craft-wooden-sword:
+    trigger: CRAFT
+    server-group: survival
+    target: WOODEN_SWORD
+    display-name: "&6Starter blade"
+    description:
+      - "&7Craft {required} {target}."
+    required: 15
+    xp: 10
+  craft-wooden-pickaxe:
+    trigger: CRAFT
+    server-group: survival
+    target: WOODEN_PICKAXE
+    display-name: "&6Starter pickaxe"
+    description:
+      - "&7Craft {required} {target}."
+    required: 15
+    xp: 10
+  craft-chest:
+    trigger: CRAFT
+    server-group: survival
+    target: CHEST
+    display-name: "&6Storage day"
+    description:
+      - "&7Craft {required} {target}."
+    required: 10
+    xp: 10
+  craft-furnace:
+    trigger: CRAFT
+    server-group: survival
+    target: FURNACE
+    display-name: "&7Heat up"
+    description:
+      - "&7Craft {required} {target}."
+    required: 10
+    xp: 10
+  craft-bucket:
+    trigger: CRAFT
+    server-group: survival
+    target: BUCKET
+    display-name: "&7Bucket ready"
+    description:
+      - "&7Craft {required} {target}."
+    required: 1
+    xp: 10
+  craft-fishing-rod:
+    trigger: CRAFT
+    server-group: survival
+    target: FISHING_ROD
+    display-name: "&bFishing prep"
+    description:
+      - "&7Craft {required} {target}."
+    required: 1
+    xp: 10
+  fish-cod:
+    trigger: FISH
+    server-group: survival
+    target: COD
+    display-name: "&bCatch cod"
+    description:
+      - "&7Catch {required} {target}."
+    required: 10
+    xp: 10
+  fish-salmon:
+    trigger: FISH
+    server-group: survival
+    target: SALMON
+    display-name: "&dCatch salmon"
+    description:
+      - "&7Catch {required} {target}."
+    required: 10
+    xp: 10
+  fish-pufferfish:
+    trigger: FISH
+    server-group: survival
+    target: PUFFERFISH
+    display-name: "&eCatch pufferfish"
+    description:
+      - "&7Catch {required} {target}."
+    required: 1
+    xp: 10
+  shear-sheep:
+    trigger: SHEAR
+    server-group: survival
+    target: SHEEP
+    display-name: "&fWool collector"
+    description:
+      - "&7Shear {required} {target}."
+    required: 10
+    xp: 10
+  milk-cows:
+    trigger: MILK
+    server-group: survival
+    target: MILK_BUCKET
+    display-name: "&fMorning milk"
+    description:
+      - "&7Fill {required} milk buckets."
+    required: 10
+    xp: 10
+  open-crafting-table:
+    trigger: RIGHT_CLICK_BLOCK
+    server-group: survival
+    target: CRAFTING_TABLE
+    display-name: "&6Workbench check"
+    description:
+      - "&7Open a crafting table."
+    required: 1
+    xp: 10
+  smelt-iron:
+    trigger: SMELT
+    server-group: survival
+    target: IRON_INGOT
+    display-name: "&7Furnace duty"
+    description:
+      - "&7Smelt {required} {target}."
+    required: 16
+    xp: 10
+  smelt-glass:
+    trigger: SMELT
+    server-group: survival
+    target: GLASS
+    display-name: "&fGlassmaker"
+    description:
+      - "&7Smelt {required} {target}."
+    required: 32
+    xp: 10
+  pinata-hit:
+    trigger: CUSTOM
+    server-group: survival
+    target: PINATAPARTY_HIT
+    display-name: "&dParty starter"
+    description:
+      - "&7Hit pinatas {required} times."
+    required: 10
+    xp: 20
+  pinata-kill:
+    trigger: CUSTOM
+    server-group: survival
+    target: PINATAPARTY_KILL
+    display-name: "&5Piñata finisher"
+    description:
+      - "&7Deliver the final hit to {required} pinata."
+    required: 1
+    xp: 25
+  pinata-pool:
+    trigger: CUSTOM
+    server-group: survival
+    target: PINATAPARTY_POOL_DEPOSIT
+    display-name: "&6Support the party"
+    description:
+      - "&7Deposit {required} money into the pinata pool."
+    required: 1000
+    xp: 25
+  customfishing-cast:
+    trigger: CUSTOM
+    server-group: survival
+    target: CUSTOMFISHING_CAST
+    display-name: "&bCast away"
+    description:
+      - "&7Cast a CustomFishing rod {required} times."
+    required: 10
+    xp: 20
+  customfishing-success:
+    trigger: CUSTOM
+    server-group: survival
+    target: CUSTOMFISHING_RESULT_SUCCESS
+    display-name: "&3Lucky catch"
+    description:
+      - "&7Finish {required} successful CustomFishing catches."
+    required: 5
+    xp: 25
+  customfishing-loot:
+    trigger: CUSTOM
+    server-group: survival
+    target: CUSTOMFISHING_LOOT
+    display-name: "&dFresh haul"
+    description:
+      - "&7Obtain {required} CustomFishing loot."
+    required: 5
+    xp: 25
+  breweryx-drink:
+    trigger: CUSTOM
+    server-group: survival
+    target: BREWERYX_DRINK
+    display-name: "&6Brew tasting"
+    description:
+      - "&7Drink {required} BreweryX beverages."
+    required: 3
+    xp: 20
+  breweryx-ingredient:
+    trigger: CUSTOM
+    server-group: survival
+    target: BREWERYX_INGREDIENT
+    display-name: "&eCauldron helper"
+    description:
+      - "&7Add {required} ingredients to BreweryX cauldrons."
+    required: 5
+    xp: 20
+  axenvoy-collect:
+    trigger: CUSTOM
+    server-group: survival
+    target: AXENVOY_COLLECT
+    display-name: "&dEnvoy runner"
+    description:
+      - "&7Collect {required} AxEnvoy crates."
+    required: 1
+    xp: 25
+  damage-player:
+    trigger: DAMAGE_PLAYER
+    server-group: survival
+    target: PLAYER
+    display-name: "&cPvP pressure"
+    description:
+      - "&7Deal {required} damage to another player."
+    required: 20
+    xp: 10
+  move-distance:
+    trigger: MOVE
+    server-group: survival
+    target: ""
+    display-name: "&7Traveler"
+    description:
+      - "&7Walk {required} blocks."
+    required: 3000
+    xp: 10
+  sneak-distance:
+    trigger: SNEAK_MOVE
+    server-group: survival
+    target: ""
+    display-name: "&8Silent steps"
+    description:
+      - "&7Sneak for {required} blocks."
+    required: 500
+    xp: 10
+  swim-distance:
+    trigger: SWIM
+    server-group: survival
+    target: ""
+    display-name: "&bSwimmer"
+    description:
+      - "&7Swim {required} blocks."
+    required: 1000
+    xp: 10
+  sprint-distance:
+    trigger: SPRINT
+    server-group: survival
+    target: ""
+    display-name: "&eRunner"
+    description:
+      - "&7Sprint {required} blocks."
+    required: 1500
+    xp: 10
+  farlands-zombie-hunt:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: ZOMBIE
+    display-name: "&2Far hunt"
+    description:
+      - "&7Kill {required} {target} far from spawn."
+    required: 5
+    xp: 15
+    conditions:
+      type: all
+      checks:
+        - type: ">="
+          input: "%player_x%"
+          output: "200"
+  rich-runner:
+    trigger: SPRINT
+    server-group: survival
+    target: ""
+    display-name: "&6Rich runner"
+    description:
+      - "&7Sprint {required} blocks while having at least $1000."
+    required: 500
+    xp: 15
+    conditions:
+      type: all
+      checks:
+        - type: ">="
+          input: "%vault_eco_balance%"
+          output: "1000"
+  spawn-visitor:
+    trigger: MOVE
+    server-group: survival
+    target: ""
+    display-name: "&bSpawn visitor"
+    description:
+      - "&7Visit the spawn area."
+    required: 1
+    xp: 15
+    conditions:
+      type: all
+      checks:
+        - type: string equals
+          input: "%player_world%"
+          output: "world"
+        - type: ">="
+          input: "%player_x%"
+          output: "0"
+        - type: "<="
+          input: "%player_x%"
+          output: "50"
+        - type: ">="
+          input: "%player_z%"
+          output: "0"
+        - type: "<="
+          input: "%player_z%"
+          output: "50"
+  vip-miner:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&dVIP mining shift"
+    description:
+      - "&7Break {required} {target} with the VIP permission."
+    required: 32
+    xp: 20
+    conditions:
+      type: all
+      checks:
+        - type: has perm
+          input: "group.vip"
+  deep-slate-shift:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&8Underground work"
+    description:
+      - "&7Break {required} {target} below Y 32."
+    required: 32
+    xp: 20
+    conditions:
+      type: all
+      checks:
+        - type: "<="
+          input: "%player_y%"
+          output: "32"

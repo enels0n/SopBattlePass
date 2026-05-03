@@ -1,0 +1,41 @@
+title: "&8Battle Pass"
+size: 27
+items:
+  summary-slot: 13
+  daily-slot: 10
+  weekly-slot: 12
+  global-slot: 14
+  rewards-slot: 16
+icons:
+  summary:
+    material: NETHER_STAR
+    name: "&6{season_name}"
+    lore:
+      - "&7Level: &f{level}"
+      - "&7XP: &f{xp}"
+      - "&7Premium: &f{premium_status}"
+      - "&7Server: &f{server_id}"
+  daily:
+    material: CLOCK
+    custom-model-data: 0
+    name: "&eDaily missions"
+    lore:
+      - "&7Open daily missions"
+  weekly:
+    material: COMPASS
+    custom-model-data: 0
+    name: "&6Weekly missions"
+    lore:
+      - "&7Open weekly missions"
+  global:
+    material: BOOK
+    custom-model-data: 0
+    name: "&bGlobal missions"
+    lore:
+      - "&7Open global missions"
+  rewards:
+    material: CHEST
+    custom-model-data: 0
+    name: "&aLevel rewards"
+    lore:
+      - "&7Open level rewards"

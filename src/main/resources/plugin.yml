@@ -1,0 +1,14 @@
+name: SopBattlePass
+main: net.enelson.sopbattlepass.SopBattlePass
+version: ${project.version}
+authors: [E_NeLsOn]
+api-version: "1.16"
+depend: [SopLib]
+softdepend: [PlaceholderAPI, PinataParty, CustomFishing, BreweryX, AxEnvoy]
+commands:
+  sopbattlepass:
+    aliases: [battlepass, sbp, bp]
+    usage: /sopbattlepass
+permissions:
+  sopbattlepass.admin:
+    default: op

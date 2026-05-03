@@ -1,0 +1,121 @@
+database:
+  type: sqlite
+  table-prefix: sopbattlepass_
+  sqlite-file: battlepass.db
+  host: 127.0.0.1
+  port: 3306
+  database: minecraft
+  username: root
+  password: ""
+  pool-name: SopBattlePass
+  maximum-pool-size: 10
+  minimum-idle: 2
+  connection-timeout: 30000
+  idle-timeout: 600000
+  max-lifetime: 1800000
+
+network:
+  enabled: false
+  server-id: survival-1
+  server-group: survival
+
+season:
+  active-id: season-1
+  timezone: Europe/Moscow
+
+premium:
+  permission-node: sopbattlepass.premium
+  permission-enabled: true
+  season-flag-enabled: true
+
+boosters:
+  global-multiplier: 1.0
+  permission-multipliers: {}
+
+integrations:
+  axenvoy:
+    enabled: true
+  breweryx:
+    enabled: true
+  custom-fishing:
+    enabled: true
+  pinata-party:
+    enabled: true
+
+missions:
+  daily:
+    mode: random
+    amount-per-group: 5
+    shared-slot-progress: true
+    allow-template-repeat: true
+  weekly:
+    mode: fixed
+    amount-per-week: 5
+    shared-slot-progress: true
+    allow-template-repeat: false
+    keep-weekly-active: true
+    hide-future-weeks: true
+  global:
+    mode: fixed
+  menu:
+    previous-page-custom-model-data: 0
+    next-page-custom-model-data: 0
+  admin:
+    allow-manual-reroll: true
+
+rewards:
+  claim:
+    default-eligible-server-ids: []
+    default-claim-limit: 1
+  menu:
+    empty-slot-material: BLACK_STAINED_GLASS_PANE
+    empty-slot-custom-model-data: 0
+    empty-slot-name: " "
+    empty-slot-lore: []
+    previous-page-material: ARROW
+    previous-page-custom-model-data: 0
+    previous-page-name: "&ePrevious page"
+    previous-page-lore:
+      - "&7Open the previous reward page"
+    next-page-material: ARROW
+    next-page-custom-model-data: 0
+    next-page-name: "&eNext page"
+    next-page-lore:
+      - "&7Open the next reward page"
+    locked-custom-model-data: 0
+    free-claimable-custom-model-data: 0
+    premium-claimable-custom-model-data: 0
+    free-claimed-custom-model-data: 0
+    premium-claimed-custom-model-data: 0
+  premium-locked-material: BARRIER
+  premium-locked-custom-model-data: 0
+  premium-locked-name: "&cPremium reward"
+  premium-locked-lore:
+    - "&7Reach this level and unlock premium"
+    - "&7to claim the reward later."
+
+messages:
+  prefix: "&6SopBattlePass &8| "
+  player-only: "{prefix}&cOnly players can use this command."
+  no-permission: "{prefix}&cYou do not have permission."
+  reload: "{prefix}&aConfiguration reloaded."
+  open-self: "{prefix}&eOpened the battle pass menu."
+  open-other: "{prefix}&eOpened the battle pass menu for {player}."
+  player-not-found: "{prefix}&cPlayer not found."
+  xp-added: "{prefix}&aAdded &e{amount}&a xp to &e{player}&a."
+  premium-granted: "{prefix}&aPremium enabled for &e{player}&a in the current season."
+  premium-revoked: "{prefix}&ePremium removed from &e{player}&e in the current season."
+  daily-rerolled: "{prefix}&aDaily missions rerolled."
+  weekly-rerolled: "{prefix}&aWeekly missions rerolled."
+  custom-progress-added: "{prefix}&aAdded &e{amount}&a custom progress for &e{player}&a on &e{target}&a."
+  mission-completed: "{prefix}&aMission completed: &e{mission} &7(+{xp} xp)"
+  reward-claimed: "{prefix}&aClaimed level &e{level} &a{track} reward."
+  reward-claim-failed: "{prefix}&cCould not claim level &e{level} &c{track} reward."
+  usage:
+    - "{prefix}&e/sopbattlepass"
+    - "{prefix}&e/sopbattlepass open [player]"
+    - "{prefix}&e/sopbattlepass reload"
+    - "{prefix}&e/sopbattlepass xp add <player> <amount>"
+    - "{prefix}&e/sopbattlepass premium <grant|revoke> <player>"
+    - "{prefix}&e/sopbattlepass reroll <daily|weekly>"
+    - "{prefix}&e/sopbattlepass progress custom <player> <target> [amount]"

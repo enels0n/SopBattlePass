@@ -1,0 +1,191 @@
+weeks:
+  1:
+    missions:
+      - week1-logger
+      - week1-stone-miner
+      - week1-zombie-hunt
+      - week1-runner
+      - week1-baker
+  2:
+    missions:
+      - week2-fisher
+      - week2-builder
+      - week2-creeper-hunt
+      - week2-overworld-travel
+      - week2-farmer
+  3:
+    missions:
+      - week3-nether-hunter
+      - week3-deep-miner
+      - week3-carnivore
+      - week3-rabbit-stew
+      - week3-swimmer
+
+templates:
+  week1-logger:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: OAK_LOG
+    display-name: "&6Forest worker"
+    description:
+      - "&7Break {required} {target}."
+    required: 256
+    xp: 180
+
+  week1-stone-miner:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&7Stone miner"
+    description:
+      - "&7Break {required} {target}."
+    required: 512
+    xp: 180
+
+  week1-zombie-hunt:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: ZOMBIE
+    display-name: "&2Zombie purge"
+    description:
+      - "&7Kill {required} {target}."
+    required: 64
+    xp: 200
+
+  week1-runner:
+    trigger: SPRINT
+    server-group: survival
+    target: ""
+    display-name: "&eLong run"
+    description:
+      - "&7Sprint {required} blocks."
+    required: 5000
+    xp: 170
+
+  week1-baker:
+    trigger: CONSUME
+    server-group: survival
+    target: BREAD
+    display-name: "&6Camp supplies"
+    description:
+      - "&7Eat {required} {target}."
+    required: 32
+    xp: 160
+
+  week2-fisher:
+    trigger: FISH
+    server-group: survival
+    target: COD
+    display-name: "&bRiver routine"
+    description:
+      - "&7Catch {required} {target}."
+    required: 32
+    xp: 180
+
+  week2-builder:
+    trigger: BLOCK_PLACE
+    server-group: survival
+    target: STONE
+    display-name: "&7Builder shift"
+    description:
+      - "&7Place {required} {target} blocks."
+    required: 256
+    xp: 180
+
+  week2-creeper-hunt:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: CREEPER
+    display-name: "&2Powder collector"
+    description:
+      - "&7Kill {required} {target}."
+    required: 32
+    xp: 200
+
+  week2-overworld-travel:
+    trigger: MOVE
+    server-group: survival
+    target: ""
+    display-name: "&bOverworld expedition"
+    description:
+      - "&7Walk {required} blocks in the overworld."
+    required: 10000
+    xp: 180
+    conditions:
+      type: all
+      checks:
+        - type: string equals
+          input: "%player_world%"
+          output: "world"
+
+  week2-farmer:
+    trigger: CONSUME
+    server-group: survival
+    target: BAKED_POTATO
+    display-name: "&6Harvest meal"
+    description:
+      - "&7Eat {required} {target}."
+    required: 32
+    xp: 160
+
+  week3-nether-hunter:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: BLAZE
+    display-name: "&6Blaze campaign"
+    description:
+      - "&7Kill {required} {target} in the nether."
+    required: 20
+    xp: 230
+    conditions:
+      type: all
+      checks:
+        - type: string equals
+          input: "%player_world%"
+          output: "world_nether"
+
+  week3-deep-miner:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&8Deep mining"
+    description:
+      - "&7Break {required} {target} below Y 32."
+    required: 384
+    xp: 210
+    conditions:
+      type: all
+      checks:
+        - type: "<="
+          input: "%player_y%"
+          output: "32"
+
+  week3-carnivore:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_PORKCHOP
+    display-name: "&cCarnivore"
+    description:
+      - "&7Eat {required} {target}."
+    required: 32
+    xp: 160
+
+  week3-rabbit-stew:
+    trigger: CONSUME
+    server-group: survival
+    target: RABBIT_STEW
+    display-name: "&fHunter dinner"
+    description:
+      - "&7Eat {required} {target}."
+    required: 16
+    xp: 180
+
+  week3-swimmer:
+    trigger: SWIM
+    server-group: survival
+    target: ""
+    display-name: "&bOpen water"
+    description:
+      - "&7Swim {required} blocks."
+    required: 3000
+    xp: 170

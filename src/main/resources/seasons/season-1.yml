@@ -1,0 +1,36 @@
+name: "Season 1"
+starts-at: "2026-05-01T00:00:00"
+ends-at: "2026-07-31T23:59:59"
+levels:
+  1:
+    required-total-xp: 0
+  2:
+    required-total-xp: 100
+  3:
+    required-total-xp: 250
+  4:
+    required-total-xp: 450
+  5:
+    required-total-xp: 700
+rewards:
+  1:
+    free:
+      commands:
+        - "say {player} claimed free level 1 on {server_id}"
+    premium:
+      commands:
+        - "say {player} claimed premium level 1 on {server_id}"
+  2:
+    free:
+      commands:
+        - "say {player} claimed free level 2 on {server_id}"
+      server-groups:
+        survival:
+          commands:
+            - "give {player} diamond 3"
+        bedwars:
+          commands:
+            - "crate key give {player} bedwars 1"
+    premium:
+      commands:
+        - "say {player} claimed premium level 2 on {server_id}"

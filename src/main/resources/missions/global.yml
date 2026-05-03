@@ -1,0 +1,109 @@
+templates:
+  season-zombie-hunter:
+    trigger: ENTITY_KILL
+    server-group: survival
+    target: ZOMBIE
+    display-name: "&2Season hunter"
+    description:
+      - "&7Kill {required} {target} this season."
+    required: 250
+    xp: 350
+  season-miner:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&7Stone discipline"
+    description:
+      - "&7Break {required} {target} this season."
+    required: 2048
+    xp: 400
+  season-runner:
+    trigger: SPRINT
+    server-group: survival
+    target: ""
+    display-name: "&eRoadrunner"
+    description:
+      - "&7Sprint {required} blocks this season."
+    required: 20000
+    xp: 380
+  season-fisher:
+    trigger: FISH
+    server-group: survival
+    target: COD
+    display-name: "&bFishing licence"
+    description:
+      - "&7Catch {required} {target} this season."
+    required: 96
+    xp: 320
+  season-builder:
+    trigger: BLOCK_PLACE
+    server-group: survival
+    target: STONE
+    display-name: "&7Builder plans"
+    description:
+      - "&7Place {required} {target} blocks this season."
+    required: 1024
+    xp: 380
+  season-overworld-explorer:
+    trigger: MOVE
+    server-group: survival
+    target: ""
+    display-name: "&bOverworld explorer"
+    description:
+      - "&7Walk {required} blocks in the overworld this season."
+    required: 25000
+    xp: 420
+    conditions:
+      type: all
+      checks:
+        - type: string equals
+          input: "%player_world%"
+          output: "world"
+  season-nether-expedition:
+    trigger: MOVE
+    server-group: survival
+    target: ""
+    display-name: "&6Nether expedition"
+    description:
+      - "&7Walk {required} blocks in the nether this season."
+    required: 5000
+    xp: 420
+    conditions:
+      type: all
+      checks:
+        - type: string equals
+          input: "%player_world%"
+          output: "world_nether"
+  season-deep-worker:
+    trigger: BLOCK_BREAK
+    server-group: survival
+    target: STONE
+    display-name: "&8Below the surface"
+    description:
+      - "&7Break {required} {target} below Y 32 this season."
+    required: 1024
+    xp: 420
+    conditions:
+      type: all
+      checks:
+        - type: "<="
+          input: "%player_y%"
+          output: "32"
+  season-cook:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_BEEF
+    display-name: "&cField rations"
+    description:
+      - "&7Eat {required} {target} this season."
+    required: 96
+    xp: 300
+  season-angler-diet:
+    trigger: CONSUME
+    server-group: survival
+    target: COOKED_SALMON
+    display-name: "&dFresh catch"
+    description:
+      - "&7Eat {required} {target} this season."
+    required: 48
+    xp: 280
