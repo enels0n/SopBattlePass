@@ -1,5 +1,7 @@
 package net.enelson.sopbattlepass.mission;
 
+import net.enelson.sopbattlepass.gui.MenuItemSpec;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -14,8 +16,9 @@ public final class MissionTemplate {
     private final int required;
     private final int xp;
     private final MissionConditions conditions;
+    private final MenuItemSpec itemSpec;
 
-    public MissionTemplate(String id, MissionTriggerType triggerType, String serverGroup, String target, String displayName, List<String> description, int required, int xp, MissionConditions conditions) {
+    public MissionTemplate(String id, MissionTriggerType triggerType, String serverGroup, String target, String displayName, List<String> description, int required, int xp, MissionConditions conditions, MenuItemSpec itemSpec) {
         this.id = id;
         this.triggerType = triggerType;
         this.serverGroup = serverGroup;
@@ -25,6 +28,7 @@ public final class MissionTemplate {
         this.required = required;
         this.xp = xp;
         this.conditions = conditions == null ? MissionConditions.alwaysTrue() : conditions;
+        this.itemSpec = itemSpec;
     }
 
     public String getId() {
@@ -61,5 +65,9 @@ public final class MissionTemplate {
 
     public MissionConditions getConditions() {
         return conditions;
+    }
+
+    public MenuItemSpec getItemSpec() {
+        return itemSpec;
     }
 }

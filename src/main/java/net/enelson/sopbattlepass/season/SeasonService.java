@@ -7,14 +7,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class SeasonService {
 
     private final SeasonDefinition activeSeason;
+    private final ZoneId zoneId;
 
     public SeasonService(SopBattlePass plugin, PluginSettings settings) {
+        this.zoneId = ZoneId.of(settings.getTimezone());
         String seasonId = settings.getActiveSeasonId();
         File file = new File(plugin.getDataFolder(), "seasons/" + seasonId + ".yml");
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
@@ -42,5 +45,13 @@ public final class SeasonService {
 
     public SeasonDefinition getActiveSeason() {
         return activeSeason;
+    }
+
+    public boolean hasSeasonStarted() {
+        return !LocalDateTime.now(this.zoneId).isBefore(this.activeSeason.getStartsAt());
+    }
+
+    public boolean hasSeasonEnded() {
+        return LocalDateTime.now(this.zoneId).isAfter(this.activeSeason.getEndsAt());
     }
 }

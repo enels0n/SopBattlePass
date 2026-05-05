@@ -22,6 +22,36 @@ network:
 season:
   active-id: season-1
   timezone: Europe/Moscow
+  menu:
+    not-started:
+      material: CLOCK
+      custom-model-data: 0
+      name: "&eSeason starts soon"
+      lore:
+        - "&7Season: &f{season_name}"
+        - "&7Starts at: &f{season_start}"
+        - "&7Come back when the season goes live."
+
+menu:
+  shared:
+    back-main:
+      material: ARROW
+      custom-model-data: 0
+      name: "&aBack"
+      lore:
+        - "&7Return to the main battle pass menu"
+    error:
+      material: BARRIER
+      custom-model-data: 0
+      name: "&cUnable to load data"
+      lore:
+        - "&7{error}"
+    category-disabled:
+      material: BARRIER
+      custom-model-data: 0
+      name: "&cCategory disabled"
+      lore:
+        - "&7This mission category is currently disabled."
 
 premium:
   permission-node: sopbattlepass.premium
@@ -44,11 +74,13 @@ integrations:
 
 missions:
   daily:
+    enabled: true
     mode: random
     amount-per-group: 5
     shared-slot-progress: true
     allow-template-repeat: true
   weekly:
+    enabled: true
     mode: fixed
     amount-per-week: 5
     shared-slot-progress: true
@@ -56,10 +88,48 @@ missions:
     keep-weekly-active: true
     hide-future-weeks: true
   global:
+    enabled: true
     mode: fixed
   menu:
-    previous-page-custom-model-data: 0
-    next-page-custom-model-data: 0
+    previous-page:
+      # Supports regular materials or HEAD:<texture>
+      material: ARROW
+      custom-model-data: 0
+      name: "&ePrevious page"
+      lore:
+        - "&7Open the previous mission page"
+    next-page:
+      # Supports regular materials or HEAD:<texture>
+      material: ARROW
+      custom-model-data: 0
+      name: "&eNext page"
+      lore:
+        - "&7Open the next mission page"
+    week-selector:
+      # Supports regular materials or HEAD:<texture>
+      material: CLOCK
+      custom-model-data: 0
+      name: "&6Week {week}"
+      lore:
+        - "&7Open missions for week &f{week}"
+    week-selector-empty:
+      material: BARRIER
+      custom-model-data: 0
+      name: "&cNo weekly missions"
+      lore:
+        - "&7There are no weekly mission weeks available right now."
+    back-to-weeks:
+      material: ARROW
+      custom-model-data: 0
+      name: "&aBack"
+      lore:
+        - "&7Return to weekly week selection"
+    empty:
+      material: BARRIER
+      custom-model-data: 0
+      name: "&cNo active missions"
+      lore:
+        - "&7Nothing is active for this page right now."
   admin:
     allow-manual-reroll: true
 
@@ -68,31 +138,70 @@ rewards:
     default-eligible-server-ids: []
     default-claim-limit: 1
   menu:
-    empty-slot-material: BLACK_STAINED_GLASS_PANE
-    empty-slot-custom-model-data: 0
-    empty-slot-name: " "
-    empty-slot-lore: []
-    previous-page-material: ARROW
-    previous-page-custom-model-data: 0
-    previous-page-name: "&ePrevious page"
-    previous-page-lore:
-      - "&7Open the previous reward page"
-    next-page-material: ARROW
-    next-page-custom-model-data: 0
-    next-page-name: "&eNext page"
-    next-page-lore:
-      - "&7Open the next reward page"
-    locked-custom-model-data: 0
-    free-claimable-custom-model-data: 0
-    premium-claimable-custom-model-data: 0
-    free-claimed-custom-model-data: 0
-    premium-claimed-custom-model-data: 0
-  premium-locked-material: BARRIER
-  premium-locked-custom-model-data: 0
-  premium-locked-name: "&cPremium reward"
-  premium-locked-lore:
-    - "&7Reach this level and unlock premium"
-    - "&7to claim the reward later."
+    empty-slot:
+      # Supports regular materials or HEAD:<texture>
+      material: BLACK_STAINED_GLASS_PANE
+      custom-model-data: 0
+      name: " "
+      lore: []
+    previous-page:
+      # Supports regular materials or HEAD:<texture>
+      material: ARROW
+      custom-model-data: 0
+      name: "&ePrevious page"
+      lore:
+        - "&7Open the previous reward page"
+    next-page:
+      # Supports regular materials or HEAD:<texture>
+      material: ARROW
+      custom-model-data: 0
+      name: "&eNext page"
+      lore:
+        - "&7Open the next reward page"
+    states:
+      locked:
+        # Supports regular materials or HEAD:<texture>
+        material: GRAY_STAINED_GLASS_PANE
+        custom-model-data: 0
+        name: "&7Level {level} - {track}"
+        lore:
+          - "&7Reach this level to unlock this reward."
+      free-claimable:
+        # Supports regular materials or HEAD:<texture>
+        material: CHEST
+        custom-model-data: 0
+        name: "&aLevel {level} - {track}"
+        lore:
+          - "&eClick to claim this reward on this server."
+      premium-claimable:
+        # Supports regular materials or HEAD:<texture>
+        material: EMERALD
+        custom-model-data: 0
+        name: "&aLevel {level} - {track}"
+        lore:
+          - "&eClick to claim this reward on this server."
+      free-claimed:
+        # Supports regular materials or HEAD:<texture>
+        material: REDSTONE_BLOCK
+        custom-model-data: 0
+        name: "&cLevel {level} - {track}"
+        lore:
+          - "&7This reward is not currently claimable on this server."
+      premium-claimed:
+        # Supports regular materials or HEAD:<texture>
+        material: REDSTONE_BLOCK
+        custom-model-data: 0
+        name: "&cLevel {level} - {track}"
+        lore:
+          - "&7This reward is not currently claimable on this server."
+  premium-locked:
+    # Supports regular materials or HEAD:<texture>
+    material: BARRIER
+    custom-model-data: 0
+    name: "&cLevel {level} - premium"
+    lore:
+      - "&7Reach this level and unlock premium"
+      - "&7to claim the reward later."
 
 messages:
   prefix: "&6SopBattlePass &8| "
@@ -108,7 +217,17 @@ messages:
   daily-rerolled: "{prefix}&aDaily missions rerolled."
   weekly-rerolled: "{prefix}&aWeekly missions rerolled."
   custom-progress-added: "{prefix}&aAdded &e{amount}&a custom progress for &e{player}&a on &e{target}&a."
+  mission-progress:
+    enabled: true
+    notify-percentages:
+      - 10
+      - 25
+      - 50
+      - 80
+      - 90
+    format: "{prefix}&7Progress for &e{mission}&7: &f{progress}&8/&f{required} &8[&e{percent}%&8]"
   mission-completed: "{prefix}&aMission completed: &e{mission} &7(+{xp} xp)"
+  mission-category-disabled: "{prefix}&cThis mission category is disabled."
   reward-claimed: "{prefix}&aClaimed level &e{level} &a{track} reward."
   reward-claim-failed: "{prefix}&cCould not claim level &e{level} &c{track} reward."
   usage:

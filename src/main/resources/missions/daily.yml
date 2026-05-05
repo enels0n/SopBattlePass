@@ -11,6 +11,13 @@ templates:
       - "&7Join the server today."
     required: 1
     xp: 10
+    item:
+      material: TOTEM_OF_UNDYING
+      custom-model-data: 0
+      name: "&dDaily login"
+      lore:
+        - "&7Join the server today."
+        - "&8You can also use HEAD:<texture> here."
   daily-playtime:
     trigger: PLAY_TIME
     server-group: survival

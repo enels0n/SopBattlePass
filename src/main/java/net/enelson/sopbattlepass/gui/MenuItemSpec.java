@@ -9,13 +9,15 @@ import java.util.List;
 
 public final class MenuItemSpec {
 
-    private final Material material;
+    private final String materialSpec;
+    private final Material fallbackMaterial;
     private final String name;
     private final Integer customModelData;
     private final List<String> lore;
 
-    public MenuItemSpec(Material material, String name, Integer customModelData, List<String> lore) {
-        this.material = material;
+    public MenuItemSpec(String materialSpec, Material fallbackMaterial, String name, Integer customModelData, List<String> lore) {
+        this.materialSpec = materialSpec;
+        this.fallbackMaterial = fallbackMaterial;
         this.name = name;
         this.customModelData = customModelData;
         this.lore = Collections.unmodifiableList(new ArrayList<String>(lore));
@@ -23,23 +25,28 @@ public final class MenuItemSpec {
 
     public static MenuItemSpec fromSection(ConfigurationSection section, Material fallbackMaterial, String fallbackName, List<String> fallbackLore) {
         if (section == null) {
-            return new MenuItemSpec(fallbackMaterial, fallbackName, null, fallbackLore);
+            return new MenuItemSpec(fallbackMaterial.name(), fallbackMaterial, fallbackName, null, fallbackLore);
         }
-        Material material = Material.matchMaterial(section.getString("material", fallbackMaterial.name()));
-        if (material == null) {
-            material = fallbackMaterial;
-        }
+        String materialSpec = section.getString("material", fallbackMaterial.name());
         Integer customModelData = section.contains("custom-model-data") ? Integer.valueOf(section.getInt("custom-model-data")) : null;
+        List<String> lore = section.contains("lore")
+                ? new ArrayList<String>(section.getStringList("lore"))
+                : new ArrayList<String>(fallbackLore);
         return new MenuItemSpec(
-                material,
+                materialSpec,
+                fallbackMaterial,
                 section.getString("name", fallbackName),
                 customModelData,
-                new ArrayList<String>(section.getStringList("lore"))
+                lore
         );
     }
 
-    public Material getMaterial() {
-        return material;
+    public String getMaterialSpec() {
+        return materialSpec;
+    }
+
+    public Material getFallbackMaterial() {
+        return fallbackMaterial;
     }
 
     public String getName() {

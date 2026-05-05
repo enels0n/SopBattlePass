@@ -2,11 +2,13 @@ package net.enelson.sopbattlepass.mission;
 
 import net.enelson.sopbattlepass.SopBattlePass;
 import net.enelson.sopbattlepass.config.PluginSettings;
+import net.enelson.sopbattlepass.gui.MenuItemSpec;
 import net.enelson.sopbattlepass.player.PlayerProgressService;
 import net.enelson.sopbattlepass.season.SeasonDefinition;
 import net.enelson.sopbattlepass.season.SeasonService;
 import net.enelson.sopbattlepass.storage.BattlePassRepository;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -130,6 +132,9 @@ public final class MissionService {
     }
 
     public List<ActiveMission> getActiveMissions(MissionType type) throws SQLException {
+        if (!isCategoryEnabled(type)) {
+            return Collections.emptyList();
+        }
         if (type == MissionType.DAILY) {
             return resolveDailyMissions();
         }
@@ -137,6 +142,16 @@ public final class MissionService {
             return resolveWeeklyMissions();
         }
         return resolveGlobalMissions();
+    }
+
+    public boolean isCategoryEnabled(MissionType type) {
+        if (type == MissionType.DAILY) {
+            return plugin.getConfig().getBoolean("missions.daily.enabled", true);
+        }
+        if (type == MissionType.WEEKLY) {
+            return plugin.getConfig().getBoolean("missions.weekly.enabled", true);
+        }
+        return plugin.getConfig().getBoolean("missions.global.enabled", true);
     }
 
     private void applyMissionProgress(Player player,
@@ -174,7 +189,10 @@ public final class MissionService {
             if (!mission.getSharedSlotKeys().isEmpty()) {
                 mirrorSharedSlotCompletion(player, mission, progressMap);
             }
+            return;
         }
+
+        sendMissionProgressMessage(player, mission, currentValue, newValue);
     }
 
     private void mirrorSharedSlotCompletion(Player player,
@@ -501,7 +519,15 @@ public final class MissionService {
                     section.getStringList("description"),
                     section.getInt("required", 1),
                     section.getInt("xp", 0),
-                    MissionConditions.fromSection(section.getConfigurationSection("conditions"))
+                    MissionConditions.fromSection(section.getConfigurationSection("conditions")),
+                    section.isConfigurationSection("item")
+                            ? MenuItemSpec.fromSection(
+                            section.getConfigurationSection("item"),
+                            Material.PAPER,
+                            section.getString("display-name", key),
+                            section.getStringList("description")
+                    )
+                            : null
             );
             result.put(key, template);
         }
@@ -553,5 +579,55 @@ public final class MissionService {
             return "";
         }
         return input.toLowerCase(Locale.ROOT).replace('_', ' ');
+    }
+
+    private void sendMissionProgressMessage(Player player, ActiveMission mission, int previousProgress, int progress) {
+        if (!plugin.getConfig().getBoolean("messages.mission-progress.enabled", true)) {
+            return;
+        }
+        int required = Math.max(1, mission.getTemplate().getRequired());
+        int previousPercent = Math.min(100, (int) Math.floor((previousProgress * 100.0D) / required));
+        int percent = Math.min(100, (int) Math.floor((progress * 100.0D) / required));
+        int notifiedPercent = highestCrossedThreshold(previousPercent, percent);
+        if (notifiedPercent < 0) {
+            return;
+        }
+        int remaining = Math.max(0, required - progress);
+        String message = plugin.getConfig().getString(
+                "messages.mission-progress.format",
+                "{prefix}&7Progress for &e{mission}&7: &f{progress}&7/&f{required} &8(&e{percent}%&8)"
+        );
+        player.sendMessage(plugin.getTextUtils().color(
+                message
+                        .replace("{prefix}", plugin.getConfig().getString("messages.prefix", ""))
+                        .replace("{mission}", mission.getTemplate().getDisplayName())
+                        .replace("{progress}", Integer.toString(progress))
+                        .replace("{required}", Integer.toString(required))
+                        .replace("{percent}", Integer.toString(percent))
+                        .replace("{notify_percent}", Integer.toString(notifiedPercent))
+                        .replace("{remaining}", Integer.toString(remaining))
+                        .replace("{xp}", Integer.toString(mission.getTemplate().getXp()))
+        ));
+    }
+
+    private int highestCrossedThreshold(int previousPercent, int currentPercent) {
+        List<Integer> thresholds = plugin.getConfig().getIntegerList("messages.mission-progress.notify-percentages");
+        int matched = -1;
+        for (Integer threshold : thresholds) {
+            if (threshold == null) {
+                continue;
+            }
+            int value = threshold.intValue();
+            if (value <= previousPercent) {
+                continue;
+            }
+            if (value > currentPercent) {
+                continue;
+            }
+            if (value > matched) {
+                matched = value;
+            }
+        }
+        return matched;
     }
 }

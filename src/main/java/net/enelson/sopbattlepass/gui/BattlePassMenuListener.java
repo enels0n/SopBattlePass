@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 
 public final class BattlePassMenuListener implements Listener {
@@ -43,7 +44,7 @@ public final class BattlePassMenuListener implements Listener {
             return;
         }
         if ("menu:view:WEEKLY".equalsIgnoreCase(customKey)) {
-            menuService.handleViewOpen(player, MenuView.WEEKLY);
+            menuService.handleViewOpen(player, MenuView.WEEKLY_WEEKS);
             return;
         }
         if ("menu:view:GLOBAL".equalsIgnoreCase(customKey)) {
@@ -75,11 +76,45 @@ public final class BattlePassMenuListener implements Listener {
             }
             return;
         }
+        if (customKey.startsWith("menu:weekly_weeks_nav:")) {
+            String[] parts = customKey.split(":");
+            if (parts.length >= 3) {
+                menuService.handleWeeklyWeekSelectorPage(player, Integer.parseInt(parts[2]));
+            }
+            return;
+        }
+        if (customKey.startsWith("menu:weekly_week:")) {
+            String[] parts = customKey.split(":");
+            if (parts.length >= 3) {
+                menuService.handleWeeklyWeekPage(player, Integer.parseInt(parts[2]), 0);
+            }
+            return;
+        }
+        if (customKey.startsWith("menu:weekly_page:")) {
+            String[] parts = customKey.split(":");
+            if (parts.length >= 4) {
+                menuService.handleWeeklyWeekPage(player, Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+            }
+            return;
+        }
+        if ("menu:weekly_selector".equalsIgnoreCase(customKey)) {
+            menuService.handleViewOpen(player, MenuView.WEEKLY_WEEKS);
+            return;
+        }
         if ("menu:back".equalsIgnoreCase(customKey)) {
             try {
                 menuService.openMain(player);
             } catch (Exception ignored) {
             }
         }
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        String title = event.getView().getTitle();
+        if (!menuService.isManagedInventory(title)) {
+            return;
+        }
+        event.setCancelled(true);
     }
 }

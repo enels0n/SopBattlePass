@@ -2,6 +2,7 @@ package net.enelson.sopbattlepass.mission;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,15 +18,22 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public final class MissionListener implements Listener {
 
     private final MissionService missionService;
+    private final Map<String, Double> movementRemainders = new HashMap<String, Double>();
 
     public MissionListener(MissionService missionService) {
         this.missionService = missionService;
@@ -67,7 +75,7 @@ public final class MissionListener implements Listener {
         if (item == null || item.getType() == Material.AIR) {
             return;
         }
-        missionService.recordSimpleProgress(event.getPlayer(), MissionTriggerType.CONSUME, item.getType().name(), item.getAmount());
+        missionService.recordSimpleProgress(event.getPlayer(), MissionTriggerType.CONSUME, item.getType().name(), 1);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -113,11 +121,24 @@ public final class MissionListener implements Listener {
 
     @EventHandler
     public void onMilk(PlayerBucketFillEvent event) {
-        if (!(event.getPlayer() instanceof Player)) {
-            return;
-        }
         ItemStack result = event.getItemStack();
         if (result == null || result.getType() != Material.MILK_BUCKET) {
+            return;
+        }
+        missionService.recordSimpleProgress(event.getPlayer(), MissionTriggerType.MILK, Material.MILK_BUCKET.name(), 1);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onMilkEntity(PlayerInteractEntityEvent event) {
+        if (event.getHand() != EquipmentSlot.HAND) {
+            return;
+        }
+        EntityType type = event.getRightClicked().getType();
+        if (type != EntityType.COW && type != EntityType.MUSHROOM_COW) {
+            return;
+        }
+        ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
+        if (item == null || item.getType() != Material.BUCKET) {
             return;
         }
         missionService.recordSimpleProgress(event.getPlayer(), MissionTriggerType.MILK, Material.MILK_BUCKET.name(), 1);
@@ -155,20 +176,35 @@ public final class MissionListener implements Listener {
         if (distance <= 0.0D) {
             return;
         }
-        int amount = (int) Math.floor(distance);
-        if (amount <= 0) {
-            return;
-        }
         Player player = event.getPlayer();
-        missionService.recordSimpleProgress(player, MissionTriggerType.MOVE, "", amount);
+        recordMovementProgress(player, MissionTriggerType.MOVE, distance);
         if (player.isSneaking()) {
-            missionService.recordSimpleProgress(player, MissionTriggerType.SNEAK_MOVE, "", amount);
+            recordMovementProgress(player, MissionTriggerType.SNEAK_MOVE, distance);
         }
         if (player.isSprinting()) {
-            missionService.recordSimpleProgress(player, MissionTriggerType.SPRINT, "", amount);
+            recordMovementProgress(player, MissionTriggerType.SPRINT, distance);
         }
         if (player.isSwimming() || player.getLocation().getBlock().isLiquid()) {
-            missionService.recordSimpleProgress(player, MissionTriggerType.SWIM, "", amount);
+            recordMovementProgress(player, MissionTriggerType.SWIM, distance);
         }
+    }
+
+    private void recordMovementProgress(Player player, MissionTriggerType triggerType, double distance) {
+        String key = movementKey(player.getUniqueId(), triggerType);
+        double total = distance + getRemainder(key);
+        int wholeBlocks = (int) Math.floor(total);
+        movementRemainders.put(key, total - wholeBlocks);
+        if (wholeBlocks > 0) {
+            missionService.recordSimpleProgress(player, triggerType, "", wholeBlocks);
+        }
+    }
+
+    private double getRemainder(String key) {
+        Double value = movementRemainders.get(key);
+        return value == null ? 0.0D : value.doubleValue();
+    }
+
+    private String movementKey(UUID uniqueId, MissionTriggerType triggerType) {
+        return uniqueId.toString() + ":" + triggerType.name();
     }
 }
