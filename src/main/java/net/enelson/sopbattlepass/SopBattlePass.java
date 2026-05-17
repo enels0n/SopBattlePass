@@ -23,6 +23,7 @@ import net.enelson.sopbattlepass.storage.SqlBattlePassRepository;
 import net.enelson.sopli.lib.database.SopDatabase;
 import net.enelson.sopli.lib.text.TextUtils;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SopBattlePass extends JavaPlugin {
@@ -66,6 +67,7 @@ public final class SopBattlePass extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        HandlerList.unregisterAll(this);
         if (expansion != null) {
             expansion.unregister();
             expansion = null;
@@ -98,13 +100,10 @@ public final class SopBattlePass extends JavaPlugin {
 
     public void reloadPlugin() throws Exception {
         reloadConfig();
+        HandlerList.unregisterAll(this);
         if (expansion != null) {
             expansion.unregister();
             expansion = null;
-        }
-        if (database != null) {
-            database.close();
-            database = null;
         }
         if (missionPlaytimeTask != null) {
             missionPlaytimeTask.stop();
@@ -126,6 +125,16 @@ public final class SopBattlePass extends JavaPlugin {
             pinataPartyHook.unregister();
             pinataPartyHook = null;
         }
+        if (database != null) {
+            database.close();
+            database = null;
+        }
+        this.repository = null;
+        this.playerProgressService = null;
+        this.missionService = null;
+        this.rewardService = null;
+        this.battlePassPlaceholders = null;
+        this.menuService = null;
         loadPlugin();
     }
 
