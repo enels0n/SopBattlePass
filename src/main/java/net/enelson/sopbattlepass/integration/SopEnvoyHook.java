@@ -14,61 +14,45 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.Locale;
 
-public final class AxEnvoyHook implements Listener {
+public final class SopEnvoyHook implements Listener {
 
     private final SopBattlePass plugin;
     private final MissionService missionService;
     private boolean registered;
 
-    public AxEnvoyHook(SopBattlePass plugin, MissionService missionService) {
+    public SopEnvoyHook(SopBattlePass plugin, MissionService missionService) {
         this.plugin = plugin;
         this.missionService = missionService;
     }
 
     public boolean register() {
-        if (!plugin.getConfig().getBoolean("integrations.axenvoy.enabled", true)) {
-            return false;
-        }
-        Plugin axEnvoy = Bukkit.getPluginManager().getPlugin("AxEnvoy");
-        if (axEnvoy == null || !axEnvoy.isEnabled()) {
+        if (!plugin.getConfig().getBoolean("integrations.sopenvoy.enabled",
+                plugin.getConfig().getBoolean("integrations.axenvoy.enabled", true))) {
             return false;
         }
 
-        ClassLoader classLoader = axEnvoy.getClass().getClassLoader();
+        Plugin sopEnvoy = Bukkit.getPluginManager().getPlugin("SopEnvoy");
+        if (sopEnvoy == null || !sopEnvoy.isEnabled()) {
+            return false;
+        }
+
+        ClassLoader classLoader = sopEnvoy.getClass().getClassLoader();
         boolean any = false;
-        any |= registerEvent(classLoader, "com.artillexstudios.axenvoy.event.EnvoyCrateCollectEvent", new ReflectiveEventConsumer() {
+        any |= registerEvent(classLoader, "net.enelson.sopenvoy.event.EnvoyCrateOpenEvent", new ReflectiveEventConsumer() {
             @Override
             public void accept(Event event) throws Exception {
                 Player player = (Player) event.getClass().getMethod("getPlayer").invoke(event);
                 if (player == null) {
                     return;
                 }
-                missionService.recordCustomProgress(player, "AXENVOY_COLLECT", 1);
 
-                Object envoy = event.getClass().getMethod("getEnvoy").invoke(event);
-                if (envoy != null) {
-                    Object envoyName = envoy.getClass().getMethod("getName").invoke(envoy);
-                    if (envoyName != null) {
-                        missionService.recordCustomProgress(player, "AXENVOY_COLLECT_" + normalizeKey(String.valueOf(envoyName)), 1);
-                    }
-                }
+                missionService.recordCustomProgress(player, "SOPENVOY_OPEN", 1);
 
                 Object crate = event.getClass().getMethod("getCrate").invoke(event);
                 if (crate != null) {
-                    Object crateType = crate.getClass().getMethod("getHandle").invoke(crate);
-                    if (crateType != null) {
-                        Object crateName = crateType.getClass().getMethod("getName").invoke(crateType);
-                        if (crateName != null) {
-                            missionService.recordCustomProgress(player, "AXENVOY_CRATE_" + normalizeKey(String.valueOf(crateName)), 1);
-                        }
-                    }
-                }
-
-                Object reward = event.getClass().getMethod("getReward").invoke(event);
-                if (reward != null) {
-                    Object rewardName = reward.getClass().getMethod("name").invoke(reward);
-                    if (rewardName != null && !String.valueOf(rewardName).trim().isEmpty()) {
-                        missionService.recordCustomProgress(player, "AXENVOY_REWARD_" + normalizeKey(String.valueOf(rewardName)), 1);
+                    Object typeId = crate.getClass().getMethod("getTypeId").invoke(crate);
+                    if (typeId != null && !String.valueOf(typeId).trim().isEmpty()) {
+                        missionService.recordCustomProgress(player, "SOPENVOY_OPEN_" + normalizeKey(String.valueOf(typeId)), 1);
                     }
                 }
             }

@@ -17,7 +17,8 @@ Current foundation:
 - admin-configurable forced daily slots
 - admin custom progress bridge through command input
 - reflective soft hook for BreweryX custom progress
-- reflective soft hook for AxEnvoy custom progress
+- reflective soft hook for SopEnvoy custom progress
+- reflective soft hook for SopRegionCore custom progress
 - reflective soft hook for CustomFishing custom progress
 - reflective soft hook for PinataParty custom progress
 
@@ -54,8 +55,13 @@ Current BreweryX hook targets:
 - `BREWERYX_INGREDIENT`
 - `BREWERYX_INGREDIENT_<CONFIG_ID>`
 
-Current AxEnvoy hook targets:
-- `AXENVOY_COLLECT`
-- `AXENVOY_COLLECT_<ENVOY_NAME>`
-- `AXENVOY_CRATE_<CRATE_NAME>`
-- `AXENVOY_REWARD_<REWARD_NAME>`
+Current SopEnvoy hook targets:
+- `SOPENVOY_OPEN`
+- `SOPENVOY_OPEN_<CRATE_TYPE>`
+
+Current SopRegionCore hook targets:
+- `SOPREGIONCORE_PLACE`
+- `SOPREGIONCORE_START`
+- `SOPREGIONCORE_START_<CORE_TYPE>`
+- `SOPREGIONCORE_MEMBER_ADD`
+- `SOPREGIONCORE_STATE_<STATE>`

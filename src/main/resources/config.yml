@@ -63,7 +63,9 @@ boosters:
   permission-multipliers: {}
 
 integrations:
-  axenvoy:
+  sopenvoy:
+    enabled: true
+  sopregioncore:
     enabled: true
   breweryx:
     enabled: true

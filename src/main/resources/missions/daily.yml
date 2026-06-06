@@ -684,13 +684,22 @@ templates:
       - "&7Add {required} ingredients to BreweryX cauldrons."
     required: 5
     xp: 20
-  axenvoy-collect:
+  sopenvoy-open:
     trigger: CUSTOM
     server-group: survival
-    target: AXENVOY_COLLECT
+    target: SOPENVOY_OPEN
     display-name: "&dEnvoy runner"
     description:
-      - "&7Collect {required} AxEnvoy crates."
+      - "&7Open {required} SopEnvoy crates."
+    required: 1
+    xp: 25
+  regioncore-start:
+    trigger: CUSTOM
+    server-group: survival
+    target: SOPREGIONCORE_START
+    display-name: "&aPower the core"
+    description:
+      - "&7Start {required} region core."
     required: 1
     xp: 25
   damage-player:

@@ -2,12 +2,13 @@ package net.enelson.sopbattlepass;
 
 import net.enelson.sopbattlepass.command.BattlePassCommand;
 import net.enelson.sopbattlepass.config.PluginSettings;
-import net.enelson.sopbattlepass.integration.AxEnvoyHook;
 import net.enelson.sopbattlepass.integration.BreweryXHook;
 import net.enelson.sopbattlepass.integration.CustomFishingHook;
 import net.enelson.sopbattlepass.gui.BattlePassMenuListener;
 import net.enelson.sopbattlepass.gui.BattlePassMenuService;
 import net.enelson.sopbattlepass.integration.PinataPartyHook;
+import net.enelson.sopbattlepass.integration.SopEnvoyHook;
+import net.enelson.sopbattlepass.integration.SopRegionCoreHook;
 import net.enelson.sopbattlepass.mission.MissionListener;
 import net.enelson.sopbattlepass.mission.MissionPlaytimeTask;
 import net.enelson.sopbattlepass.mission.MissionService;
@@ -44,7 +45,8 @@ public final class SopBattlePass extends JavaPlugin {
     private PinataPartyHook pinataPartyHook;
     private CustomFishingHook customFishingHook;
     private BreweryXHook breweryXHook;
-    private AxEnvoyHook axEnvoyHook;
+    private SopEnvoyHook sopEnvoyHook;
+    private SopRegionCoreHook sopRegionCoreHook;
 
     @Override
     public void onEnable() {
@@ -76,9 +78,13 @@ public final class SopBattlePass extends JavaPlugin {
             missionPlaytimeTask.stop();
             missionPlaytimeTask = null;
         }
-        if (axEnvoyHook != null) {
-            axEnvoyHook.unregister();
-            axEnvoyHook = null;
+        if (sopEnvoyHook != null) {
+            sopEnvoyHook.unregister();
+            sopEnvoyHook = null;
+        }
+        if (sopRegionCoreHook != null) {
+            sopRegionCoreHook.unregister();
+            sopRegionCoreHook = null;
         }
         if (breweryXHook != null) {
             breweryXHook.unregister();
@@ -109,9 +115,13 @@ public final class SopBattlePass extends JavaPlugin {
             missionPlaytimeTask.stop();
             missionPlaytimeTask = null;
         }
-        if (axEnvoyHook != null) {
-            axEnvoyHook.unregister();
-            axEnvoyHook = null;
+        if (sopEnvoyHook != null) {
+            sopEnvoyHook.unregister();
+            sopEnvoyHook = null;
+        }
+        if (sopRegionCoreHook != null) {
+            sopRegionCoreHook.unregister();
+            sopRegionCoreHook = null;
         }
         if (breweryXHook != null) {
             breweryXHook.unregister();
@@ -166,9 +176,13 @@ public final class SopBattlePass extends JavaPlugin {
         if (breweryXHook.register()) {
             getLogger().info("Hooked into BreweryX.");
         }
-        this.axEnvoyHook = new AxEnvoyHook(this, missionService);
-        if (axEnvoyHook.register()) {
-            getLogger().info("Hooked into AxEnvoy.");
+        this.sopEnvoyHook = new SopEnvoyHook(this, missionService);
+        if (sopEnvoyHook.register()) {
+            getLogger().info("Hooked into SopEnvoy.");
+        }
+        this.sopRegionCoreHook = new SopRegionCoreHook(this, missionService);
+        if (sopRegionCoreHook.register()) {
+            getLogger().info("Hooked into SopRegionCore.");
         }
         this.customFishingHook = new CustomFishingHook(this, missionService);
         if (customFishingHook.register()) {
