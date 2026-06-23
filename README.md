@@ -21,6 +21,7 @@ Current foundation:
 - reflective soft hook for SopRegionCore custom progress
 - reflective soft hook for CustomFishing custom progress
 - reflective soft hook for PinataParty custom progress
+- reflective soft hook for the wider Sop* ecosystem (SopAFKZone, SopAfterworld, SopAnimals, SopCamera, SopCrates, SopCustomTNT, SopElevators, SopExpCanning, SopMachines, SopMeals, SopPlants, SopSafe, SopScrolls, SopTNTRun, SopUpgradablePickaxe)
 
 This first pass intentionally focuses on the durable core:
 - config model
@@ -65,3 +66,22 @@ Current SopRegionCore hook targets:
 - `SOPREGIONCORE_START_<CORE_TYPE>`
 - `SOPREGIONCORE_MEMBER_ADD`
 - `SOPREGIONCORE_STATE_<STATE>`
+
+Current Sop* ecosystem hook targets (managed by `SopEcosystemHook`, each toggle under `integrations.<plugin>.enabled`):
+- SopAFKZone: `SOPAFKZONE_COMPLETE`
+- SopAfterworld: `SOPAFTERWORLD_ENTER`
+- SopAnimals: `SOPANIMALS_TAME`, `SOPANIMALS_TAME_<TYPE>`, `SOPANIMALS_FEED`, `SOPANIMALS_FEED_<TYPE>`, `SOPANIMALS_BIRTH`, `SOPANIMALS_BIRTH_<TYPE>`, `SOPANIMALS_DEATH`, `SOPANIMALS_DEATH_HUNGER`, `SOPANIMALS_DEATH_OLD_AGE`
+- SopCamera: `SOPCAMERA_PHOTO`
+- SopCrates: `SOPCRATES_OPEN`, `SOPCRATES_OPEN_<CRATE_ID>`
+- SopCustomTNT: `SOPCUSTOMTNT_EXPLODE`, `SOPCUSTOMTNT_EXPLODE_<TNT_ID>` (requires an igniter player; currently fired with no player, so progress is only credited if the plugin later tracks the responsible player)
+- SopElevators: `SOPELEVATORS_MOVE`, `SOPELEVATORS_UP`, `SOPELEVATORS_DOWN`
+- SopExpCanning: `SOPEXPCANNING_CAN`
+- SopMachines: `SOPMACHINES_CRAFT`, `SOPMACHINES_CRAFT_<TYPE>`, `SOPMACHINES_RUIN`, `SOPMACHINES_RUIN_<TYPE>`
+- SopMeals: `SOPMEALS_COMBO`, `SOPMEALS_COMBO_<COMBO_ID>`
+- SopPlants: `SOPPLANTS_PLANT`, `SOPPLANTS_WATER`, `SOPPLANTS_HARVEST`, `SOPPLANTS_BREAK` (each also with a `_<PLANT>` suffixed variant)
+- SopSafe: `SOPSAFE_CREATE`
+- SopScrolls: `SOPSCROLLS_USE`, `SOPSCROLLS_USE_<SCROLL_ID>`
+- SopTNTRun: `SOPTNTRUN_WIN`, `SOPTNTRUN_LOSE`
+- SopUpgradablePickaxe: `SOPUPGRADABLEPICKAXE_UPGRADE`
+
+Event contract: each plugin publishes a Bukkit event under `net.enelson.<plugin>.event.*` exposing `getPlayer()` (or `getOwner()` for SopAnimals birth/death) plus the type/id getters used above. `SopEcosystemHook` subscribes reflectively, so missing plugins/events are simply skipped.

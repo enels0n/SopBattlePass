@@ -9,6 +9,7 @@ import net.enelson.sopbattlepass.gui.BattlePassMenuService;
 import net.enelson.sopbattlepass.integration.PinataPartyHook;
 import net.enelson.sopbattlepass.integration.SopEnvoyHook;
 import net.enelson.sopbattlepass.integration.SopRegionCoreHook;
+import net.enelson.sopbattlepass.integration.SopEcosystemHook;
 import net.enelson.sopbattlepass.mission.MissionListener;
 import net.enelson.sopbattlepass.mission.MissionPlaytimeTask;
 import net.enelson.sopbattlepass.mission.MissionService;
@@ -47,6 +48,7 @@ public final class SopBattlePass extends JavaPlugin {
     private BreweryXHook breweryXHook;
     private SopEnvoyHook sopEnvoyHook;
     private SopRegionCoreHook sopRegionCoreHook;
+    private SopEcosystemHook sopEcosystemHook;
 
     @Override
     public void onEnable() {
@@ -98,6 +100,10 @@ public final class SopBattlePass extends JavaPlugin {
             pinataPartyHook.unregister();
             pinataPartyHook = null;
         }
+        if (sopEcosystemHook != null) {
+            sopEcosystemHook.unregister();
+            sopEcosystemHook = null;
+        }
         if (database != null) {
             database.close();
             database = null;
@@ -134,6 +140,10 @@ public final class SopBattlePass extends JavaPlugin {
         if (pinataPartyHook != null) {
             pinataPartyHook.unregister();
             pinataPartyHook = null;
+        }
+        if (sopEcosystemHook != null) {
+            sopEcosystemHook.unregister();
+            sopEcosystemHook = null;
         }
         if (database != null) {
             database.close();
@@ -191,6 +201,10 @@ public final class SopBattlePass extends JavaPlugin {
         this.pinataPartyHook = new PinataPartyHook(this, missionService);
         if (pinataPartyHook.register()) {
             getLogger().info("Hooked into PinataParty.");
+        }
+        this.sopEcosystemHook = new SopEcosystemHook(this, missionService);
+        if (sopEcosystemHook.register()) {
+            getLogger().info("Hooked into Sop* ecosystem events.");
         }
         registerPlaceholderExpansion();
     }

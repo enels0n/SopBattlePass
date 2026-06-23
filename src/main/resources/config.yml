@@ -67,6 +67,36 @@ integrations:
     enabled: true
   sopregioncore:
     enabled: true
+  sopafkzone:
+    enabled: true
+  sopafterworld:
+    enabled: true
+  sopanimals:
+    enabled: true
+  sopcamera:
+    enabled: true
+  sopcrates:
+    enabled: true
+  sopcustomtnt:
+    enabled: true
+  sopelevators:
+    enabled: true
+  sopexpcanning:
+    enabled: true
+  sopmachines:
+    enabled: true
+  sopmeals:
+    enabled: true
+  sopplants:
+    enabled: true
+  sopsafe:
+    enabled: true
+  sopscrolls:
+    enabled: true
+  soptntrun:
+    enabled: true
+  sopupgradablepickaxe:
+    enabled: true
   breweryx:
     enabled: true
   custom-fishing:
